@@ -16,6 +16,11 @@ class Node
   def remove
     # optional but useful, connects previous link to next link
     # and removes self from list.
+    self.prev.next = self.next if self.prev != nil
+    self.next.prev = self.prev if self.next != nil
+    self.next = nil
+    self.prev = nil
+    self
   end
 end
 
@@ -40,7 +45,6 @@ class LinkedList
   end
 
   def empty?
-    
   end
 
   def get(key)
@@ -59,6 +63,11 @@ class LinkedList
   end
 
   def each
+    curr_node = self.head.next
+    until curr_node == self.tail
+      yield curr_node
+      curr_node = curr_node.next
+    end
   end
 
   # uncomment when you have `each` working and `Enumerable` included
