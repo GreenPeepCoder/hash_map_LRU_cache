@@ -41,9 +41,11 @@ class LinkedList
   end
 
   def first
+    empty? ? nil : self.head.next
   end
 
   def last
+    empty? ? nil : self.tail.prev
   end
 
   def empty?
@@ -51,6 +53,8 @@ class LinkedList
   end
 
   def get(key)
+    each { |node| return node.val if node.key == key}
+    nil
   end
 
   def include?(key)
