@@ -11,6 +11,7 @@ class HashMap
   end
 
   def include?(key)
+    bucket(key).include?(key)
   end
 
   def set(key, val)
@@ -24,9 +25,13 @@ class HashMap
   end
 
   def get(key)
+    bucket(key).get(key)
   end
 
   def delete(key)
+    removal = bucket(key).remove(key)
+    @count -= 1 if removal
+    removal
   end
 
   def each
