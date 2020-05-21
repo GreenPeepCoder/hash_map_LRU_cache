@@ -125,6 +125,9 @@ class DynamicArray
   def ==(other)
     return false unless [Array, DynamicArray].include?(other.class)
     # ...
+    return false unless length == other.length
+    each_with_index { |ele, i| return false unless ele == other[i]}
+    true
   end
 
   alias_method :<<, :push
