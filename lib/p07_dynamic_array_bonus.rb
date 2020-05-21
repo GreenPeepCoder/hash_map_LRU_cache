@@ -81,6 +81,11 @@ class DynamicArray
   end
 
   def unshift(val)
+    resize! if capacity == self.count
+    self.start_idx = (self.start_idx - 1) % capacity
+    self.store[self.start_idx] = val
+    self.count += 1
+    self
   end
 
   def pop
