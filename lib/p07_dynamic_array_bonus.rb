@@ -45,8 +45,21 @@ class DynamicArray
 
     self.store[(self.start_idx + i) % capacity]
   end
-
+  
   def []=(i, val)
+    if i >= self.count
+      (i-self.count).times { push(nil)}
+    elsif i < 0
+      return nil if i < -self.count
+      return self[self.count + 1] = val
+    end
+
+    if i == self.count
+      resize! if capacity == self.count
+      self.count += 1
+    end
+  
+    self.store[(self.start_idx + i) % capacity] = val
   end
 
   def capacity
@@ -92,5 +105,10 @@ class DynamicArray
   private
 
   def resize!
+    new_store = StaticArray.new(capacity * 2)
+    each_with_index { |ele, i| new_store[i] = ele }
+
+    self.store = new_store
+    self.start_idx = 0
   end
 end
