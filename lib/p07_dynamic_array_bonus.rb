@@ -27,6 +27,9 @@ class StaticArray
 end
 
 class DynamicArray
+
+  include Enumerable
+
   attr_accessor :count, :store, :start_idx
 
   def initialize(capacity = 8)
@@ -67,9 +70,14 @@ class DynamicArray
   end
 
   def include?(val)
+    any? { |ele| ele == val }
   end
 
   def push(val)
+    resize! if capacity == self.count
+    self.store[(self.start_idx + self.count) % capacity] = val
+    self.count += 1
+    self
   end
 
   def unshift(val)
@@ -88,6 +96,8 @@ class DynamicArray
   end
 
   def each
+    self.count.times { |i| yield self[i]}
+    self
   end
 
   def to_s
