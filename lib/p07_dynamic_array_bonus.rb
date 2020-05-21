@@ -89,15 +89,28 @@ class DynamicArray
   end
 
   def pop
+    return nil if self.count == 0
+    last_item = self.store[(self.start_idx + self.count - 1) % capacity]
+    self.count -= 1
+    last_item
   end
-
+  
   def shift
+    return nil if self.count == 0
+    self.count -= 1
+    first_item = self.store[self.start_idx]
+    self.start_idx = (self.start_idx + 1) % capacity
+    first_item
   end
 
   def first
+    return nil if self.count == 0
+    self.store[@start_idx]
   end
-
+  
   def last
+    return nil if self.count == 0
+    @store[(@start_idx + @count - 1 ) % capacity]
   end
 
   def each
