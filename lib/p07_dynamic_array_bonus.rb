@@ -27,11 +27,12 @@ class StaticArray
 end
 
 class DynamicArray
-  attr_accessor :count
+  attr_accessor :count, :store, :start_idx
 
   def initialize(capacity = 8)
     @store = StaticArray.new(capacity)
     @count = 0
+    @start_idx = 0
   end
 
   def [](i)
