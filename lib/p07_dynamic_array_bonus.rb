@@ -36,6 +36,14 @@ class DynamicArray
   end
 
   def [](i)
+    if i >= self.count
+      return nil
+    elsif i < 0
+      return nil if i < -self.count
+      return self[self.count + 1]
+    end
+
+    self.store[(self.start_idx + i) % capacity]
   end
 
   def []=(i, val)
